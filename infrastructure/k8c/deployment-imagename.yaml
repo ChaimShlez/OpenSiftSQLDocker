@@ -1,0 +1,209 @@
+﻿kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: '3'
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"imagename:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"imagename\")].image"}]'
+    openshift.io/generated-by: OpenShiftNewApp
+  resourceVersion: '2520144654'
+  name: imagename
+  uid: dc8c6ef4-12cf-4d22-ab4f-3f6575c9553a
+  creationTimestamp: '2025-08-14T13:47:05Z'
+  generation: 3
+  managedFields:
+    - manager: oc
+      operation: Update
+      apiVersion: apps/v1
+      time: '2025-08-14T13:47:05Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:image.openshift.io/triggers': {}
+            'f:openshift.io/generated-by': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/component': {}
+            'f:app.kubernetes.io/instance': {}
+        'f:spec':
+          'f:progressDeadlineSeconds': {}
+          'f:replicas': {}
+          'f:revisionHistoryLimit': {}
+          'f:selector': {}
+          'f:strategy':
+            'f:rollingUpdate':
+              .: {}
+              'f:maxSurge': {}
+              'f:maxUnavailable': {}
+            'f:type': {}
+          'f:template':
+            'f:metadata':
+              'f:annotations':
+                .: {}
+                'f:openshift.io/generated-by': {}
+              'f:labels':
+                .: {}
+                'f:deployment': {}
+            'f:spec':
+              'f:containers':
+                'k:{"name":"imagename"}':
+                  .: {}
+                  'f:imagePullPolicy': {}
+                  'f:name': {}
+                  'f:ports':
+                    .: {}
+                    'k:{"containerPort":8000,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:protocol': {}
+                  'f:resources': {}
+                  'f:terminationMessagePath': {}
+                  'f:terminationMessagePolicy': {}
+              'f:dnsPolicy': {}
+              'f:restartPolicy': {}
+              'f:schedulerName': {}
+              'f:securityContext': {}
+              'f:terminationGracePeriodSeconds': {}
+    - manager: openshift-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2025-08-14T13:47:06Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:template':
+            'f:spec':
+              'f:containers':
+                'k:{"name":"imagename"}':
+                  'f:image': {}
+    - manager: kubectl-set
+      operation: Update
+      apiVersion: apps/v1
+      time: '2025-08-14T14:04:30Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:template':
+            'f:spec':
+              'f:containers':
+                'k:{"name":"imagename"}':
+                  'f:env':
+                    .: {}
+                    'k:{"name":"DB_HOST"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"DB_NAME"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"DB_PASSWORD"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"DB_USER"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2025-08-14T14:06:08Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:deployment.kubernetes.io/revision': {}
+        'f:status':
+          'f:conditions':
+            .: {}
+            'k:{"type":"Available"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Progressing"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+          'f:observedGeneration': {}
+          'f:replicas': {}
+          'f:unavailableReplicas': {}
+          'f:updatedReplicas': {}
+      subresource: status
+  namespace: chaimshlez-dev
+  labels:
+    app: imagename
+    app.kubernetes.io/component: imagename
+    app.kubernetes.io/instance: imagename
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: imagename
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        deployment: imagename
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      containers:
+        - name: imagename
+          image: 'chaim022/imagename@sha256:101c7b92f01d3b32043acf18d925765e4eab4433c3791723ad4f1605b14c3338'
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+          env:
+            - name: DB_HOST
+              value: your_host
+            - name: DB_USER
+              value: your_user
+            - name: DB_PASSWORD
+              value: your_password
+            - name: DB_NAME
+              value: your_database
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 3
+  replicas: 1
+  updatedReplicas: 1
+  unavailableReplicas: 1
+  conditions:
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2025-08-14T14:06:07Z'
+      lastTransitionTime: '2025-08-14T13:47:05Z'
+      reason: NewReplicaSetAvailable
+      message: ReplicaSet "imagename-55dcd4d56c" has successfully progressed.
+    - type: Available
+      status: 'False'
+      lastUpdateTime: '2025-08-14T14:06:08Z'
+      lastTransitionTime: '2025-08-14T14:06:08Z'
+      reason: MinimumReplicasUnavailable
+      message: Deployment does not have minimum availability.

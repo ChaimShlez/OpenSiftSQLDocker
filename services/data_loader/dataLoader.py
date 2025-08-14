@@ -14,23 +14,6 @@ class ConnectionWrapper:
     database=os.getenv("DB_NAME"))
 
 
-
-
-
-    def execute(self,sql,param=None):
-
-        try:
-            with self.con.cursor() as cur:
-                if param is not None:
-                    cur.execute(sql, param)
-                else:
-                    cur.execute(sql)
-                self.con.commit()
-        except Error as e:
-            print(f"DB execute error: {e}")
-
-
-
     def select(self, sql, param=None):
         try:
             with self.con.cursor() as cur:
