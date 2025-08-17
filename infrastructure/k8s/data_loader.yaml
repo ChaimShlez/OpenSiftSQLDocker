@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: data-loader
-        image: chaim022/data_loader:5
+        image: chaim022/data_loader:11
 
         ports:
         - containerPort: 8000
@@ -25,7 +25,7 @@ spec:
           value: root
         - name: DB_PASSWORD
           value: root_password
-        - name: DB_DATABASE
+        - name: DB_NAME
           value: my_db
 
 

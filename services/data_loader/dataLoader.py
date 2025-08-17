@@ -13,10 +13,12 @@ class ConnectionWrapper:
     password=os.getenv("DB_PASSWORD"),
     database=os.getenv("DB_NAME")
 
+
         )
 
 
     def select(self, sql, param=None):
+
         try:
             with self.con.cursor() as cur:
                 if param is not None:
@@ -27,3 +29,4 @@ class ConnectionWrapper:
                 return myresult
         except Error as e:
             print(f"DB execute error: {e}")
+

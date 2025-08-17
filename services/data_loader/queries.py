@@ -13,7 +13,7 @@ class Queries:
 
 
     def getAll(self):
-        sql = "SELECT * FROM agents"
+        sql = "SELECT * FROM students"
         res = self._connection.select(sql)
 
         return res
